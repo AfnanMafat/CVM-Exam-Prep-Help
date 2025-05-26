@@ -1,0 +1,21 @@
+package com.uep.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import com.uep.model.Branch;
+import com.uep.repository.BranchRepository;
+
+@Service
+public class BranchService {
+
+	@Autowired
+	BranchRepository branchRepository;
+)
+	public List<Branch> GetBranches(){
+		return branchRepository.findAll();
+	}
+}

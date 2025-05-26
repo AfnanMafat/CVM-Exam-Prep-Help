@@ -1,0 +1,65 @@
+package com.uep.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.uep.model.User;
+import com.uep.repository.UsersRepository;
+
+@RestController
+public class UserController extends Exception{
+	
+	@Autowired
+	UsersRepository usersRepository;
+	
+	@PostMapping
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+        User savedUser = usersRepository.save(user);
+        return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable Integer id) throws Exception {
+        User user = usersRepository.findById(id)
+            .orElseThrow(() -> new Exception());
+        return ResponseEntity.ok(user);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> users = usersRepository.findAll();
+        return ResponseEntity.ok(users);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(
+        @PathVariable Integer id,
+        @RequestBody User userDetails
+    ) {
+        User user = usersRepository.findById(id)
+            .orElseThrow(() -> new Exception());
+        user.setEmail(userDetails.getEmail());
+        user.setPassword(userDetails.getPassword());
+        
+        User updatedUser = usersRepository.save(user);
+        return ResponseEntity.ok(updatedUser);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable Integer id) {
+        usersRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
+
+}

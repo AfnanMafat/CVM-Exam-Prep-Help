@@ -1,0 +1,6 @@
+package com.uep.service;
+
+@Service
+public class SubjectService {
+
+}

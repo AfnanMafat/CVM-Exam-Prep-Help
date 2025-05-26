@@ -1,0 +1,20 @@
+package com.uep.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.uep.model.User;
+import com.uep.service.UserService;
+
+class UserController{
+	
+	@Autowired
+	UserService userService;
+	
+	// Add New User
+	@PostMapping("/AddUser")
+	public void AddUser(@RequestBody User user) {
+		userService.AddUser(user);
+	}
+}

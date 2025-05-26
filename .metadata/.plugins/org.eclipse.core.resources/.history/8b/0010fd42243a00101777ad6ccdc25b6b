@@ -1,0 +1,21 @@
+package com.uep.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.uep.model.Semester;
+import com.uep.repository.SemesterRepository;
+
+@Service
+public class SemesterService {
+	
+	@Autowired
+	SemesterRepository semesterRepository;
+	
+	
+	public List<Semester> getSemesters(){
+		return semesterRepository.findAll();
+	}
+}

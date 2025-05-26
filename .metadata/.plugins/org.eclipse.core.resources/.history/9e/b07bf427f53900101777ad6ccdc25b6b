@@ -1,0 +1,14 @@
+package com.uep.controller;
+
+import org.springframework.web.bind.annotation.RestController;
+
+import com.uep.service.UserService;
+
+@RestController
+public class UserController {
+	
+	UserService userService;
+	
+	
+
+}

@@ -1,0 +1,13 @@
+package com.uep.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.uep.repository.SemesterRepository;
+
+@Service
+public class SemesterService {
+	
+	@Autowired
+	SemesterRepository semesterRepository;
+}

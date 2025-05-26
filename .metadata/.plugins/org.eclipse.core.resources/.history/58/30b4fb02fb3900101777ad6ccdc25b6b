@@ -1,0 +1,28 @@
+package com.uep.service;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.uep.model.User;
+import com.uep.repository.UsersRepository;
+
+@Service
+public class UserService {
+
+	@Autowired
+	UsersRepository usersRepository;
+	
+	public void AddUser(User user) {
+		usersRepository.save(user);
+	}
+
+	public Optional<User> FindUser(Integer id) {
+		return usersRepository.findById(id);
+	}
+}
