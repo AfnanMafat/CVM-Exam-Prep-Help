@@ -1,0 +1,24 @@
+package com.uep.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.uep.model.Material;
+import com.uep.service.MaterialService;
+
+@RestController
+@CrossOrigin(origins = "http://localhost:5173")
+
+public class MaterialController {
+	
+	@Autowired
+	MaterialService materialService;
+	
+	@PostMapping(value = "/UploadMaterial",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public void UploadMaterial(@RequestBody Material material) {
+		materialService.UploadMaterial(material);
+	}
+}

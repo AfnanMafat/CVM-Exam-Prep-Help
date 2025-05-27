@@ -1,0 +1,5 @@
+package com.uep.configuration;
+
+public class WebMvcConfigurer {
+
+}

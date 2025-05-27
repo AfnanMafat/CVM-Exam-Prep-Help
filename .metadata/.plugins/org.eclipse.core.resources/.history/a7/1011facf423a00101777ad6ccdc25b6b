@@ -1,0 +1,56 @@
+package com.uep.controller;
+
+import java.awt.PageAttributes.MediaType;
+
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.uep.model.Material;
+import com.uep.model.User;
+import com.uep.service.MaterialService;
+
+@RestController
+@CrossOrigin(origins = "http://localhost:5173")
+
+public class MaterialController {
+	
+	@Autowired
+	MaterialService materialService;
+	
+	@PostMapping(value = "/UploadMaterial", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public ResponseEntity<String> uploadMaterial(
+	    @RequestParam("file") MultipartFile file,
+	    @RequestParam("title") String title,
+	    @RequestParam("description") String description,
+	    @RequestParam("subjectId") Integer subjectId,
+	    Authentication authentication
+	) {
+	    try {
+	        // 1. File handling
+	        String fileUrl = fileStorageService.storeFile(file);
+	        
+	        // 2. Get authenticated user
+	        User user = userRepository.findByEmail(authentication.getName());
+	        
+	        // 3. Create material
+	        Material material = new Material();
+	        material.setTitle(title);
+	        material.setDescription(description);
+	        material.setFileUrl(fileUrl);
+	        material.setUploadedBy(user);
+	        material.setSubject(subjectRepository.findById(subjectId).orElseThrow());
+	        
+	        materialService.saveMaterial(material);
+	        
+	        return ResponseEntity.ok("Material uploaded successfully");
+	    } catch (Exception e) {
+	        return ResponseEntity.status(500).body("Upload failed: " + e.getMessage());
+	    }
+	}
+}

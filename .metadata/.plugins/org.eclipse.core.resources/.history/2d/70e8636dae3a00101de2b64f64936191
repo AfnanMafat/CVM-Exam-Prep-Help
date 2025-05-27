@@ -1,0 +1,25 @@
+spring.application.name=UniExamPrep-BackEnd
+
+spring.datasource.url=jdbc:mysql://localhost:3306/uniexamprep
+spring.datasource.username=root
+spring.datasource.password=Afnan$9885
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+
+app.upload.dir=C:/Users/hp/Desktop/Computer Engineering/Internship Works/CVM Exam Help/Material
+
+spring.servlet.multipart.max-file-size=20MB
+spring.servlet.multipart.max-request-size=20MB
+
+
+# show every SQL INSERT/UPDATE, with parameters
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+
+# log the JDBC bind values
+logging.level.org.hibernate.type.descriptor.sql=TRACE
+
+# log Spring’s exceptions
+logging.level.org.springframework.web=DEBUG
+logging.level.com.uep=DEBUG

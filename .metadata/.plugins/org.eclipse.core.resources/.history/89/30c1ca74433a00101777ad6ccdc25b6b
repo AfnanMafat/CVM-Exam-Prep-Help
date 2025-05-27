@@ -1,0 +1,67 @@
+package com.uep.service;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.uep.model.Material;
+import com.uep.repository.MaterialRepository;
+import com.uep.repository.SubjectRepository;
+import com.uep.repository.UsersRepository;
+
+@Service
+public class MaterialService {
+
+	@Autowired
+    private final MaterialRepository materialRepo;
+	
+	@Autowired
+    private final SubjectRepository subjectRepo;
+	@Autowired
+    private final UsersRepository userRepo;
+
+    public MaterialService(MaterialRepository materialRepo,
+                           SubjectRepository subjectRepo,
+                           UsersRepository userRepo) {
+        this.materialRepo = materialRepo;
+        this.subjectRepo = subjectRepo;
+        this.userRepo    = userRepo;
+    }
+
+    public Material saveWithFile(String title,
+                                 String description,
+                                 Integer subjectId,
+                                 Integer uploadedById,
+                                 MultipartFile file,
+                                 String uploadDir) throws IOException {
+        // 1. Lookup the related entities
+        var subject = subjectRepo.findById(subjectId)
+                      .orElseThrow();
+        var user    = userRepo.findById(uploadedById)
+                      .orElseThrow();
+
+        // 2. Store the file on disk
+        String filename = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+        Path target = Paths.get(uploadDir).resolve(filename);
+        Files.createDirectories(target.getParent());
+        try (var in = file.getInputStream()) {
+            Files.copy(in, target, StandardCopyOption.REPLACE_EXISTING);
+        }
+
+        // 3. Build and save the Material entity
+        Material m = new Material();
+        m.setTitle(title);
+        m.setDescription(description);
+        // This URL is what your React app will use to download the file:
+        m.setFileUrl("/uploads/" + filename);
+        m.setSubject(subject);
+        m.setUploadedBy(user);
+        return materialRepo.save(m);
+    }
+}

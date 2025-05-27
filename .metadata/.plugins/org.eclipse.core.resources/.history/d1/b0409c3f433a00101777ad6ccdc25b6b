@@ -1,0 +1,21 @@
+package com.uep.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.uep.model.Material;
+import com.uep.repository.MaterialRepository;
+
+@Service
+public class MaterialService {
+
+	@Autowired
+	MaterialRepository materialRepository;
+	public void UploadMaterial(Material material) {
+		
+		materialRepository.save(material);
+		
+	}
+
+	
+}
