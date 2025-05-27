@@ -17,4 +17,8 @@ public class SubjectService {
 	public List<Subject> ListAllSubjectsBySemester(int id){
 		return subjectRepository.findBySemesterId(id);
 	}
+	
+	public List<Subject> ListAllByBranchSem(int id1,int id2){
+		return subjectRepository.findByBranchIdAndSemesterId(id1, id2);
+	}
 }

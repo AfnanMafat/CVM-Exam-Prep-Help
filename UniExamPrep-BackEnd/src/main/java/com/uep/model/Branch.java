@@ -71,6 +71,14 @@ public class Branch {
 		return semesters;
 	}
 
+	public Branch(Integer id, String name, List<Semester> semesters, List<Subject> subjects) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.semesters = semesters;
+		this.subjects = subjects;
+	}
+
 	public void setSemesters(List<Semester> semesters) {
 		this.semesters = semesters;
 	}
@@ -78,4 +86,17 @@ public class Branch {
 	@OneToMany(mappedBy = "branch")
 	@JsonBackReference
 	private List<Semester> semesters = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "branch")
+	@JsonBackReference
+	private List<Subject> subjects = new ArrayList<>();
+
+	public List<Subject> getSubjects() {
+		return subjects;
+	}
+
+	public void setSubjects(List<Subject> subjects) {
+		this.subjects = subjects;
+	}
+
 }

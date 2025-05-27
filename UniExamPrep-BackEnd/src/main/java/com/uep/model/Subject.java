@@ -84,11 +84,18 @@ public class Subject {
 	private Integer id;
 
 	private String name;
+	
 
 	@ManyToOne
 	@JoinColumn(name = "semester_id")
 	@JsonBackReference
 	private Semester semester;
+	
+	@ManyToOne
+	@JoinColumn(name = "branch_id", referencedColumnName = "id")
+	@JsonBackReference
+	private Branch branch;
+
 
 	@OneToMany(mappedBy = "subject")
 	@JsonBackReference

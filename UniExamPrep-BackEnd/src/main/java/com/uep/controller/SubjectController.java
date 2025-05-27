@@ -22,4 +22,9 @@ public class SubjectController {
 	public List<Subject> GetAllSubjectBySemester(@PathVariable Integer id){
 		return subjectService.ListAllSubjectsBySemester(id);
 	}
+	
+	@GetMapping("/ListAllSubByBranchSem/{bid}/{id}")
+	public List<Subject> GetAllSubjectsBranchSemWise(@PathVariable int bid,@PathVariable int id){
+		return subjectService.ListAllByBranchSem(bid, id);
+	}
 }

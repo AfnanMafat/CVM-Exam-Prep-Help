@@ -467,3 +467,9 @@ org.eclipse.equinox.p2.core.ProvisionException: Error while reading from reposit
 
 !ENTRY org.springframework.tooling.boot.ls 1 0 2025-05-27 11:37:20.020
 !MESSAGE Classpath changed for project: UniExamPrep-BackEnd
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2025-05-27 12:37:50.296
+!MESSAGE Classpath changed for project: UniExamPrep-BackEnd
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2025-05-27 12:58:20.082
+!MESSAGE Classpath changed for project: UniExamPrep-BackEnd
